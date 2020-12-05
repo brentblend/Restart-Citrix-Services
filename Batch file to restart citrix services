@@ -1,0 +1,58 @@
+@echo Off
+rem 
+
+call :Logit>>C:\Temp\Test_Citrix3.log
+2>&1
+:Logit
+
+NET STOP "Citrix Audio Redirection Service"
+NET STOP "Citrix Desktop Service"
+NET STOP "Citrix Device Redirector Service"
+NET STOP "Citrix Diagnostic Facility COM Server"
+NET STOP "Citrix Dynamic Virtual Channel Service"
+NET STOP "Citrix Encryption Service"
+NET STOP "Citrix End User Experience Monitoring Service"
+NET STOP "Citrix Gateway AlwaysOn Service"
+NET STOP "Citrix Gateway Service"
+NET STOP "Citrix Group Policy Engine"
+NET STOP "Citrix HDX HTML5 Video Redirection Service"
+NET STOP "Citrix HDX MediaStream for Flash Service"
+NET STOP "Citrix ICA Service" /Y
+NET STOP "Citrix Location and Sensor Virtual Channel Service"
+NET STOP "Citrix Mobile Receiver Virtual Channel Service"
+NET STOP "Citrix MultiTouch Redirection Service"
+NET STOP "Citrix Print Manager Service" /Y
+NET STOP "Citrix Profile Management"
+NET STOP "CitrixFsp.Launcher"
+
+erase C:\Users\ARosin\AppData\Local\Citrix\*.* /Q
+timeout /T 30
+
+cd C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin
+Start SelfService
+NET START "Citrix Audio Redirection Service"
+NET START "Citrix Desktop Service"
+NET START "Citrix Device Redirector Service"
+NET START "Citrix Diagnostic Facility COM Server"
+NET START "Citrix Dynamic Virtual Channel Service"
+NET START "Citrix Encryption Service"
+NET START "Citrix End User Experience Monitoring Service"
+NET START "Citrix Gateway AlwaysOn Service"
+NET START "Citrix Gateway Service"
+NET START "Citrix Group Policy Engine"
+NET START "Citrix HDX HTML5 Video Redirection Service"
+NET START "Citrix HDX MediaStream for Flash Service"
+NET START "Citrix ICA Service"
+NET START "Citrix Location and Sensor Virtual Channel Service"
+NET START "Citrix Mobile Receiver Virtual Channel Service"
+NET START "Citrix MultiTouch Redirection Service"
+NET START "Citrix Print Manager Service"
+NET START "Citrix Profile Management"
+NET START "CitrixFsp.Launcher"
+
+taskkill /F /IM SelfService.exe
+Taskkill /IM ssonsvr.exe /F
+Taskkill /IM WerFault.exe /F
+
+cd C:\Program Files (x86)\Citrix\ICA Client\SelfServicePlugin
+Start SelfService
